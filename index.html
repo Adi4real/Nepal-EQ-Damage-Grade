@@ -1,68 +1,273 @@
 <!DOCTYPE html>
-<html>
-<title>Nepal EQ DG</title>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepal Earthquake Damage Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        .bold-big-text {
-    font-family: Arial, sans-serif; /* Choose a professional font-family */
-    font-weight: bold; /* Make the text bold */
-    font-size: 24px; /* Set the font size to make it big */
-    color: #333; /* Choose a professional color for the text */
-    /* Additional styling for a professional look */
-    letter-spacing: 0.5px; /* Adjust letter spacing for clarity */
-    line-height: 1.5; /* Set line height for better readability */
-    text-transform: capitalize; /* Capitalize the text for a polished appearance */
-    padding-left: 20px;
-    padding-right: 20px;
-}
-</style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+        .story-section > * {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .story-section.is-animated > *:nth-child(1) { transition-delay: 0.1s; }
+        .story-section.is-animated > *:nth-child(2) { transition-delay: 0.3s; }
+        .story-section.is-animated > *:nth-child(3) { transition-delay: 0.5s; }
+        .story-section.is-animated > *:nth-child(4) { transition-delay: 0.7s; }
+        .story-section.is-animated > *:nth-child(5) { transition-delay: 0.9s; }
+        .story-section.is-animated > *:nth-child(6) { transition-delay: 1.1s; }
+        .story-section.is-animated > *:nth-child(7) { transition-delay: 1.3s; }
+        .story-section.is-animated > *:nth-child(8) { transition-delay: 1.5s; }
+        .story-section.is-animated > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-section {
+            padding: 4rem 2rem;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+        .story-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+        .story-subheading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+        .story-paragraph {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+        .data-visualization {
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .tableau-container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+        }
+        .tableau-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: #4f46e5;
+            color: white;
+            border-radius: 9999px;
+            padding: 0.75rem 1.25rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+        .scroll-to-top:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+        /* Custom styles for the cards */
+        .card-container {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .card-heading {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        .card-body {
+            font-size: 1rem;
+            color: #4b5563;
+        }
+        .card.is-animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-<body>  
+<body>
 
-<h1 style="font-family: Arial, sans-serif;
-font-weight: bold;
-color: #333;"><center>Nepal Earthquake (Damage Grade)</center></h1>  
-<br>
-<div style="display: flex; justify-content: center;">
-    <a class="bold-big-text" href="Superstructure.html">Buildings info.</a>
-    <a class="bold-big-text" href="damage_grade(nepal).html">Data Cleaning & EDA</a>
-    <a class="bold-big-text" href="Pandas_profiling.html">Pandas profiling</a>
-     </div>
-<div class='tableauPlaceholder'
- id='viz1713449184156' 
- style='position: relative'
-        >
- <noscript>
-    <a href='#'><img alt='Heat Map of types of Buildings affected ' 
-        src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;He&#47;Heat_MapNDG&#47;Sheet2&#47;1_rss.png' 
-        style='border: none' /></a>
-    </noscript>
-    <object class='tableauViz'  style='display:none;'>
-        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
-        <param name='embed_code_version' value='3' /> 
-        <param name='site_root' value='' />
-        <param name='name' value='Heat_MapNDG&#47;Sheet2' />
-        <param name='tabs' value='no' /><param name='toolbar' value='yes' />
-        <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;He&#47;Heat_MapNDG&#47;Sheet2&#47;1.png' /> 
-        <param name='animate_transition' value='yes' />\
-        <param name='display_static_image' value='yes' />
-        <param name='display_spinner' value='yes' />
-        <param name='display_overlay' value='yes' />
-        <param name='display_count' value='yes' />
-        <param name='language' value='en-US' />
-        <param name='filter' value='publish=yes' />
-    </object></div>                
-    <script type='text/javascript'>                    
-    var divElement = document.getElementById('viz1713449184156');                   
-     var vizElement = divElement.getElementsByTagName('object')[0];                   
-      vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                  
-      var scriptElement = document.createElement('script');                  
-        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                   
-         vizElement.parentNode.insertBefore(scriptElement, vizElement);              
+    <!-- Header Section -->
+    <header class="bg-indigo-600 text-white py-24 px-8 text-center rounded-b-3xl shadow-xl animate__animated animate__fadeInDown">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl font-bold mb-4">Unveiling the Impact: A Story of Nepal's Earthquake</h1>
+            <p class="text-xl font-light">An interactive analysis of building damage, told through data.</p>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <!-- Introduction Section -->
+        <section id="introduction" class="story-section">
+            <h2 class="story-heading">The Data Tells a Story</h2>
+            <p class="story-paragraph">
+                Following the devastating earthquake in Nepal, a rich dataset was compiled to understand the factors influencing building damage. This data isn't just numbers; it's a window into the lives of families and communities affected. Our analysis aims to uncover the patterns and relationships hidden within this data, transforming raw information into a clear and compelling narrative.
+            </p>
+            <p class="story-paragraph">
+                Join us as we explore the key factors that determined whether a home would withstand the tremors or fall to rubble.
+            </p>
+        </section>
+
+        <!-- New Chapter 1: The Building's Blueprint (Descriptive text only) -->
+        <section id="the-blueprint" class="story-section bg-white rounded-xl shadow-lg">
+            <h2 class="story-heading">Chapter 1: The Building's Blueprint</h2>
+            <p class="story-paragraph">
+                Before we can understand the damage, we must first understand the buildings themselves. The dataset provides a detailed blueprint for each structure. The key parameters considered for this analysis are:
+            </p>
+            <div class="card-container">
+                <div class="card animate__animated animate__fadeInUp animate__delay-1s">
+                    <h3 class="card-heading">Age</h3>
+                    <p class="card-body">The number of years the building has stood, a key indicator of material degradation and construction standards over time.</p>
+                </div>
+                <div class="card animate__animated animate__fadeInUp animate__delay-2s">
+                    <h3 class="card-heading">Floors</h3>
+                    <p class="card-body">The number of stories in the building, which directly impacts its height and stability during seismic events.</p>
+                </div>
+                <div class="card animate__animated animate__fadeInUp animate__delay-3s">
+                    <h3 class="card-heading">Superstructure</h3>
+                    <p class="card-body">The primary load-bearing materials, which can include adobe, mud mortar stone, stone flag, cement mortar brick, timber, and bamboo.</p>
+                </div>
+                <div class="card animate__animated animate__fadeInUp animate__delay-4s">
+                    <h3 class="card-heading">Foundation</h3>
+                    <p class="card-body">The material and type of the building's foundation, providing crucial support and stability from the ground up.</p>
+                </div>
+                <div class="card animate__animated animate__fadeInUp animate__delay-5s">
+                    <h3 class="card-heading">Location</h3>
+                    <p class="card-body">The specific geographical location of the building within Nepal, which may correlate with ground conditions and local seismic intensity.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Chapter 2: The Visualized Story (All visualizations) -->
+        <section id="visualized-story" class="story-section">
+            <h2 class="story-heading animate__animated animate__fadeInUp">Chapter 2: Uncovering the Insights</h2>
+            <p class="story-paragraph animate__animated animate__fadeInUp animate__delay-1s">
+                With a clear understanding of the parameters, let's dive into the visualizations to see how these factors influenced the damage grade. The following dashboards allow us to explore the data and find key insights.
+            </p>
+
+            <!-- Visualization 1: Age and Floors vs. Damage Grade (from old Chapter 1) -->
+            <h3 class="story-subheading animate__animated animate__fadeInUp animate__delay-2s">Age and Floors vs. Damage Grade</h3>
+            <div class="data-visualization animate__animated animate__fadeInUp animate__delay-3s">
+                <div class="tableau-container">
+                    <iframe src="https://public.tableau.com/views/AS_17137653551930/Dashboard3?:embed=y&:display_count=yes&:showVizHome=no" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <p class="story-paragraph animate__animated animate__fadeInUp animate__delay-4s">
+                **Key Insight:** As seen in the scatter plot, newer buildings and those with fewer floors generally experienced less severe damage. However, the data shows that this is not always the case, suggesting other factors, such as materials, are also at play.
+            </p>
+
+            <!-- Visualization 2: Material Matters (from old Chapter 2) -->
+            <h3 class="story-subheading animate__animated animate__fadeInUp animate__delay-5s">Material's Resilience: A Tale of Superstructures</h3>
+            <p class="story-paragraph animate__animated animate__fadeInUp animate__delay-6s">
+                This dashboard classifies buildings by their superstructure and foundation types, directly showing how material choices impacted earthquake resilience.
+            </p>
+            <div class="data-visualization animate__animated animate__fadeInUp animate__delay-7s">
+                <div class="tableau-container">
+                    <iframe src="https://public.tableau.com/views/BT_17137655139400/Dashboard4?:embed=y&:display_count=yes&:showVizHome=no" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <p class="story-paragraph animate__animated animate__fadeInUp animate__delay-8s">
+                **Key Insight:** Structures built with reinforced concrete (RC) demonstrated a clear advantage with significantly lower damage grades. Conversely, traditional materials like adobe and mud mortar stone were more vulnerable.
+            </p>
+
+            <!-- Visualization 3: Geographical Impact (from old Chapter 3) -->
+            <h3 class="story-subheading animate__animated animate__fadeInUp animate__delay-9s">The Lay of the Land: A Geographical Heatmap</h3>
+            <p class="story-paragraph animate__animated animate__fadeInUp animate__delay-10s">
+                The ground a building stands on is just as important as the building itself. This heatmap visualizes the concentration of different damage grades across Nepal's geographical regions, allowing us to see how local conditions may have influenced the destruction.
+            </p>
+            <div class="data-visualization animate__animated animate__fadeInUp animate__delay-11s">
+                <div class="tableau-container">
+                    <iframe src="https://public.tableau.com/views/Heat_MapNDG/Sheet2?:embed=y&:display_count=yes&:showVizHome=no" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <p class="story-paragraph animate__animated animate__fadeInUp animate__delay-12s">
+                **Key Insight:** The heatmap reveals that certain geographical regions experienced a higher prevalence of severe damage (Damage Grade 3), highlighting the impact of factors like soil type, proximity to the epicenter, or regional construction practices.
+            </p>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section id="conclusion" class="story-section bg-white rounded-xl shadow-lg">
+            <h2 class="story-heading animate__animated animate__fadeInUp">The Aftermath and the Path Forward</h2>
+            <p class="story-paragraph animate__animated animate__fadeInUp animate__delay-1s">
+                Our analysis paints a clear picture: building age, materials, and geographical location were all significant predictors of earthquake damage. The data not only helps us understand the past but also informs a path forward for building a more resilient Nepal. Future efforts should focus on retrofitting vulnerable structures, promoting safer construction materials, and developing building codes tailored to regional geological conditions.
+            </p>
+            <p class="story-paragraph animate__animated animate__fadeInUp animate__delay-2s">
+                By turning data into a story, we hope to make these critical insights more accessible and inspire action for a safer tomorrow.
+            </p>
+        </section>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+        Back to Top
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Header animation
+            const header = document.querySelector('header');
+            if (header) {
+                header.classList.add('animate__animated', 'animate__fadeInDown');
+            }
+
+            // Intersection Observer to trigger staggered animations on sections
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-animated');
+                        // Stop observing once it's animated to improve performance
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            // Observe all story sections and cards
+            document.querySelectorAll('.story-section, .card').forEach(element => {
+                observer.observe(element);
+            });
+        });
     </script>
-
-
-    
 </body>
 </html>
-
